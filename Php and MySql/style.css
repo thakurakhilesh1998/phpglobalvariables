@@ -4,6 +4,11 @@ body{
     color: white;
 }
 
+.alert
+{
+    text-align: center;
+    color: red;
+}
 h2{
     text-align: center;
 }
@@ -39,3 +44,4 @@ footer
 {
     text-align: center;
 }
+
