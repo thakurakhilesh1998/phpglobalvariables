@@ -17,24 +17,40 @@ if(isset($_GET['success']))
     $success=$_GET['success'];
 }
 ?>
+<!-- to delete data from database -->
+<?php
+    if(isset($_GET['action'])=='delete' && isset($_GET['id']))
+    {
+       $id=$_GET['id'];
+       $delquery="Delete from messageapp where id=$id";
+       if(!mysqli_query($connection,$delquery))
+       {
+           die(mysqli_error($connection));
+       }
+       else
+       {
+           header("location:index.php?success=deleted%20saved%20successfully");
+       }
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" type="text/css" rel="stylesheet">
     <title>Message App</title>
-    <link href="style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
             <h2>Message App</h2>
             <?php if(isset($error)):?>
-                <div class="alert" style="color: red; text-align:center"><?php echo $error;?></div>
+                <div class="alert"><?php echo $error;?></div>
             <?php endif;?>
             <?php if(isset($success)):?>
-                <div style="color: green; text-align:center"><?php echo $success;?></div>
+                <div class="success"><?php echo $success;?></div>
             <?php endif;?>
         </header>
 
@@ -49,7 +65,11 @@ if(isset($_GET['success']))
               <?php 
               while($row=mysqli_fetch_assoc($msg)):
               ?>
-              <li><?php echo $row['testmsg']?>.By:<?php echo $row['username']?>.Sent on<?php echo $row['timeanddate']?></li>
+              <li>
+                  <?php echo $row['testmsg']?>
+                  .By:<?php echo $row['username']?>
+                  .Sent on<?php echo $row['timeanddate']?> -
+                  <a class="del" href="index.php?action=delete&id=<?php echo $row['id']; ?>">X</a></li>
               <?php endwhile; ?>
             </ul>
         </main>
