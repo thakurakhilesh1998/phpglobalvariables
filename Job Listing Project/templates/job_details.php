@@ -15,4 +15,12 @@
 <br><br>
 <a href="index.php">Go Back</a>
 <br><br>
+
+<div class="well">
+    <a href="edit.php?id=<?php echo $jobs->id;?>" class="btn btn-light">Edit</a>
+    <form style="display:inline;" method="POST" action="job.php">
+        <input type="hidden" value="<?php echo $jobs->id;?>" name="del_id">
+        <input type="submit" class="btn btn-danger" value="del">
+    </form>
+</div>
 <?php include_once('inc/footer.php'); ?>

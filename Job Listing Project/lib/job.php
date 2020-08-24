@@ -70,5 +70,43 @@ class Job{
             return false;
         }
     }
+
+    public function deleteJob($del_id)
+    {
+        $this->db->query("DELETE FROM jobs WHERE id=$del_id");
+        if($this->db->execute())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function updateJob($job_id,$data)
+    {
+     $this->db->query("UPDATE jobs SET category_id= :category_id,company=:company,job_title=:job_title,description=:description,salary=:salary,location=:location,contact_user=:contact_user,contact_email=:contact_email WHERE id=$job_id");   
+
+     $this->db->bind(":category_id",$data['category']);
+     $this->db->bind(":company",$data['company']);
+     $this->db->bind(":job_title",$data['job_title']);
+     $this->db->bind(":description",$data['description']);
+     $this->db->bind(":salary",$data['salary']);
+     $this->db->bind(":location",$data['location']);
+     $this->db->bind(":contact_user",$data['contact_user']);
+     $this->db->bind(":contact_email",$data['contact_email']);
+
+
+     if($this->db->execute())
+     {
+         return true;
+     }
+     else
+     {
+         return false;
+     }
+     
+    }
 }
 ?>
